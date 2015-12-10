@@ -27,16 +27,24 @@ public class Priority {
 			throw new IllegalStateException("No people in Queue."); 
 		return patients[0][0];
 	}
-	public void dequeue()
+	public String dequeue()
 	{
+		int index = 0;
 		if(length == 0)
 			throw new IllegalStateException("No people in Queue."); 
-		patients[0] = null;
-		for(int i = 0; i < length-1; i++)
+		for(int i = length - 1; i >= 0; i--)
+		{
+			if(patients[i][1].equalsIgnoreCase("priority"))
+				index = i;
+		}
+		length--;
+		String name = patients[index][0];
+		patients[index] = null;
+		for(int i = index; i < length; i++)
 		{
 			patients[i] = patients[i+1];
 		}
 		patients[length] = null;
-		length--;
+		return name;
 	}
 }
